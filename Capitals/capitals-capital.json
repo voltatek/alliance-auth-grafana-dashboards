@@ -1,0 +1,340 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 25,
+    "links": [],
+    "panels": [
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null,
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 32,
+          "w": 6,
+          "x": 0,
+          "y": 0
+        },
+        "id": 2,
+        "options": {
+          "showHeader": true
+        },
+        "pluginVersion": "7.5.2",
+        "targets": [
+          {
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "select\n    sum(assets.quantity) as \"Count\",\n    IFNULL(el.location_name, IFNULL((select name from corptools_mapsystem where system_id = assets.location_id), concat(\"Unknown (\",assets.location_id,\")\"))) as \"Location\"\nfrom\n    corptools_characterasset assets\n    join corptools_characteraudit ac on assets.character_id = ac.id\n    join eveonline_evecharacter ec on ac.character_id = ec.id\n    join corptools_eveitemtype it on assets.type_id = it.type_id\n    join corptools_eveitemgroup ig on it.group_id = ig.group_id\n    left outer join corptools_evelocation el on assets.location_name_id = el.location_id\nwhere\n  it.group_id = 547 and ac.last_update_assets >= NOW() - INTERVAL 48 HOUR\ngroup by 2\norder by 1 desc",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "id"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "table": "auth_user",
+            "timeColumn": "last_login",
+            "timeColumnType": "timestamp",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Carriers",
+        "type": "table"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null,
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 32,
+          "w": 6,
+          "x": 6,
+          "y": 0
+        },
+        "id": 3,
+        "options": {
+          "showHeader": true
+        },
+        "pluginVersion": "7.5.2",
+        "targets": [
+          {
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "select\n    sum(assets.quantity) as \"Count\",\n    IFNULL(el.location_name, IFNULL((select name from corptools_mapsystem where system_id = assets.location_id), concat(\"Unknown (\",assets.location_id,\")\"))) as \"Location\"\nfrom\n    corptools_characterasset assets\n    join corptools_characteraudit ac on assets.character_id = ac.id\n    join eveonline_evecharacter ec on ac.character_id = ec.id\n    join corptools_eveitemtype it on assets.type_id = it.type_id\n    join corptools_eveitemgroup ig on it.group_id = ig.group_id\n    left outer join corptools_evelocation el on assets.location_name_id = el.location_id\nwhere\n  it.group_id = 485 and ac.last_update_assets >= NOW() - INTERVAL 48 HOUR\ngroup by 2\norder by 1 desc",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "id"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "table": "auth_user",
+            "timeColumn": "last_login",
+            "timeColumnType": "timestamp",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Dreads",
+        "type": "table"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null,
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 32,
+          "w": 6,
+          "x": 12,
+          "y": 0
+        },
+        "id": 5,
+        "options": {
+          "showHeader": true
+        },
+        "pluginVersion": "7.5.2",
+        "targets": [
+          {
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "select\n    sum(assets.quantity) as \"Count\",\n    IFNULL(el.location_name, IFNULL((select name from corptools_mapsystem where system_id = assets.location_id), concat(\"Unknown (\",assets.location_id,\")\"))) as \"Location\"\nfrom\n    corptools_characterasset assets\n    join corptools_characteraudit ac on assets.character_id = ac.id\n    join eveonline_evecharacter ec on ac.character_id = ec.id\n    join corptools_eveitemtype it on assets.type_id = it.type_id\n    join corptools_eveitemgroup ig on it.group_id = ig.group_id\n    left outer join corptools_evelocation el on assets.location_name_id = el.location_id\nwhere\n  it.group_id = 659 and ac.last_update_assets >= NOW() - INTERVAL 48 HOUR\ngroup by 2\norder by 1 desc",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "id"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "table": "auth_user",
+            "timeColumn": "last_login",
+            "timeColumnType": "timestamp",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Super Carriers",
+        "type": "table"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null,
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Count"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": null
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 32,
+          "w": 6,
+          "x": 18,
+          "y": 0
+        },
+        "id": 4,
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Count"
+            }
+          ]
+        },
+        "pluginVersion": "7.5.2",
+        "targets": [
+          {
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "select\n    sum(assets.quantity) as \"Count\",\n    IFNULL(el.location_name, IFNULL((select name from corptools_mapsystem where system_id = assets.location_id), concat(\"Unknown (\",assets.location_id,\")\"))) as \"Location\"\nfrom\n    corptools_characterasset assets\n    join corptools_characteraudit ac on assets.character_id = ac.id\n    join eveonline_evecharacter ec on ac.character_id = ec.id\n    join corptools_eveitemtype it on assets.type_id = it.type_id\n    join corptools_eveitemgroup ig on it.group_id = ig.group_id\n    left outer join corptools_evelocation el on assets.location_name_id = el.location_id\nwhere\n  it.group_id = 30 and ac.last_update_assets >= NOW() - INTERVAL 48 HOUR\ngroup by 2\norder by 1 desc",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "id"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "table": "auth_user",
+            "timeColumn": "last_login",
+            "timeColumnType": "timestamp",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Titans",
+        "type": "table"
+      }
+    ],
+    "schemaVersion": 27,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Caps > Caps > Caps",
+    "uid": "T9WvFiAMz",
+    "version": 2
+  }

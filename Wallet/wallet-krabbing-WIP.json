@@ -1,0 +1,1094 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 31,
+    "iteration": 1629881225405,
+    "links": [],
+    "panels": [
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 7,
+          "x": 0,
+          "y": 0
+        },
+        "id": 22,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "7.5.2",
+        "targets": [
+          {
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "select\n    SUM(amount) AS \"Amount\"\nfrom\n    corptools_corporationwalletjournalentry cw\njoin corptools_corporationwalletdivision cwd on cw.division_id = cwd.id\njoin corptools_corporationaudit caudit on cwd.corporation_id = caudit.id\njoin eveonline_evecorporationinfo cinfo on caudit.corporation_id = cinfo.id\nwhere cinfo.corporation_id = $Corporation and cw.ref_type in ($RefType)\nand\n  $__timeFilter(cw.date);",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "id"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "table": "killtracker_evekillmail",
+            "timeColumn": "time",
+            "timeColumnType": "timestamp",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "Total Income Refrence Type",
+        "type": "stat"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": null,
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Amount"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "short"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 9,
+          "x": 7,
+          "y": 0
+        },
+        "id": 20,
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "sum(cw.amount)"
+            }
+          ]
+        },
+        "pluginVersion": "7.5.2",
+        "targets": [
+          {
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "select\n    sum(cw.amount), cinfo.corporation_id\nfrom\n    corptools_corporationwalletjournalentry cw\njoin corptools_corporationwalletdivision cwd on cw.division_id = cwd.id\njoin corptools_corporationaudit caudit on cwd.corporation_id = caudit.id\njoin eveonline_evecorporationinfo cinfo on caudit.corporation_id = cinfo.id\nwhere cw.ref_type in ($RefType) and  $__timeFilter(cw.date)\ngroup by cinfo.corporation_id",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "id"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "table": "killtracker_evekillmail",
+            "timeColumn": "time",
+            "timeColumnType": "timestamp",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "Total Tax Income",
+        "type": "table"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "continuous-GrYlRd"
+            },
+            "custom": {
+              "align": null,
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ISK"
+              },
+              "properties": [
+                {
+                  "id": "custom.displayMode",
+                  "value": "gradient-gauge"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 8,
+          "x": 16,
+          "y": 0
+        },
+        "id": 8,
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "ISK"
+            }
+          ]
+        },
+        "pluginVersion": "7.5.2",
+        "targets": [
+          {
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "select\ncorporation_name as \"Corporation\",  sum(amount) as \"ISK\"\nFROM \n  corptools_characterwalletjournalentry as wallet\nINNER JOIN eveonline_evecharacter on eveonline_evecharacter.character_id=second_party_id\nWHERE (ref_type = \"bounty_prizes\" OR ref_type='ess_escrow_transfer' OR ref_type='corporate_reward_payout' OR ref_type='agent_reward_missions')\nAND MONTH(date) = MONTH(CURRENT_TIMESTAMP)\ngroup by corporation_name, Month(date);\n\n",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "id"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "table": "killtracker_evekillmail",
+            "timeColumn": "time",
+            "timeColumnType": "timestamp",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "Krab Income Player by Corp - Current Month",
+        "type": "table"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "continuous-RdYlGr"
+            },
+            "custom": {
+              "align": null,
+              "displayMode": "auto",
+              "filterable": true
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Amount"
+              },
+              "properties": [
+                {
+                  "id": "custom.width"
+                },
+                {
+                  "id": "custom.displayMode",
+                  "value": "gradient-gauge"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 8,
+          "x": 0,
+          "y": 6
+        },
+        "id": 12,
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Amount"
+            }
+          ]
+        },
+        "pluginVersion": "7.5.2",
+        "targets": [
+          {
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT character_name as \"Krabber\", corporation_name as \"Corporation\", sum(amount) as \"Amount\"\nFROM \n  corptools_characterwalletjournalentry\nINNER JOIN eveonline_evecharacter on eveonline_evecharacter.character_id=second_party_id\nWHERE (ref_type = \"bounty_prizes\" OR ref_type='ess_escrow_transfer' OR ref_type='corporate_reward_payout' OR ref_type='agent_reward_missions') AND MONTH(date) = MONTH(CURRENT_TIMESTAMP)\ngroup by second_party_id, Month(date);",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "id"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "table": "killtracker_evekillmail",
+            "timeColumn": "time",
+            "timeColumnType": "timestamp",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "Player Krab Income - Current Month",
+        "type": "table"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "continuous-GrYlRd"
+            },
+            "custom": {
+              "align": null,
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 8,
+          "x": 8,
+          "y": 6
+        },
+        "id": 9,
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Amount"
+            }
+          ]
+        },
+        "pluginVersion": "7.5.2",
+        "targets": [
+          {
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "select\ncorporation_name as \"Corporation\", SUM(amount) AS \"Amount\"\nFROM \n  corptools_corporationwalletjournalentry as wallet\nINNER JOIN eveonline_evecharacter on eveonline_evecharacter.character_id=second_party_id\nWHERE \n  ref_type = \"corporate_reward_payout\" AND MONTH(date) = MONTH(CURRENT_TIMESTAMP)\ngroup by corporation_name, Month(date);",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "id"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "table": "killtracker_evekillmail",
+            "timeColumn": "time",
+            "timeColumnType": "timestamp",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "Corp Tax Income (Rewards) - Current Month",
+        "type": "table"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "continuous-GrYlRd"
+            },
+            "custom": {
+              "align": null,
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 8,
+          "x": 8,
+          "y": 12
+        },
+        "id": 16,
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Amount"
+            }
+          ]
+        },
+        "pluginVersion": "7.5.2",
+        "targets": [
+          {
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "select\ncorporation_name as \"Corporation\", SUM(amount) AS \"Amount\"\nFROM \n  corptools_corporationwalletjournalentry as wallet\nINNER JOIN eveonline_evecharacter on eveonline_evecharacter.character_id=second_party_id\nWHERE \n  ref_type = \"agent_mission_reward\" AND MONTH(date) = MONTH(CURRENT_TIMESTAMP)\ngroup by corporation_name, Month(date);",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "id"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "table": "killtracker_evekillmail",
+            "timeColumn": "time",
+            "timeColumnType": "timestamp",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "Corp Tax Income (Missions) - Current Month",
+        "type": "table"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "continuous-GrYlRd"
+            },
+            "custom": {
+              "align": null,
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 8,
+          "x": 0,
+          "y": 15
+        },
+        "id": 7,
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Amount"
+            }
+          ]
+        },
+        "pluginVersion": "7.5.2",
+        "targets": [
+          {
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "select\ncorporation_name as \"Corporation\", sum(tax) as \"Amount\"\nFROM \n  corptools_corporationwalletjournalentry as wallet\nINNER JOIN eveonline_evecorporationinfo on eveonline_evecorporationinfo.corporation_id=tax_receiver_id\nWHERE \n  ref_type = \"bounty_prizes\" AND MONTH(date) = MONTH(CURRENT_TIMESTAMP)\ngroup by tax_receiver_id, Month(date);",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "id"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "table": "killtracker_evekillmail",
+            "timeColumn": "time",
+            "timeColumnType": "timestamp",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "Corp Tax Income - Current Month",
+        "type": "table"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "continuous-GrYlRd"
+            },
+            "custom": {
+              "align": null,
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 23,
+          "w": 8,
+          "x": 8,
+          "y": 19
+        },
+        "id": 18,
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Amount"
+            }
+          ]
+        },
+        "pluginVersion": "7.5.2",
+        "targets": [
+          {
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "select\ncorporation_name as \"Corporation\", SUM(amount) AS \"Amount\"\nFROM \n  corptools_corporationwalletjournalentry as wallet\nINNER JOIN eveonline_evecharacter on eveonline_evecharacter.character_id=second_party_id\nWHERE \n  ref_type = \"agent_mission_reward\" OR ref_type = \"bounty_prizes\" OR ref_type = \"ess_escrow_transfer\" OR ref_type = \"corporate_reward_payout\" AND $__timeFilter(date)\ngroup by corporation_name;",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "id"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "table": "killtracker_evekillmail",
+            "timeColumn": "time",
+            "timeColumnType": "timestamp",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "Corp Tax Income (All) - Selected Time Frame",
+        "type": "table"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "continuous-GrYlRd"
+            },
+            "custom": {
+              "align": null,
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 8,
+          "x": 0,
+          "y": 22
+        },
+        "id": 10,
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Amount"
+            }
+          ]
+        },
+        "pluginVersion": "7.5.2",
+        "targets": [
+          {
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "select\ncorporation_name as \"Corporation\", SUM(amount) AS \"Amount\"\nFROM \n  corptools_corporationwalletjournalentry as wallet\nINNER JOIN eveonline_evecharacter on eveonline_evecharacter.character_id=second_party_id\nWHERE \n  ref_type = \"ess_escrow_transfer\" AND MONTH(date) = MONTH(CURRENT_TIMESTAMP)\ngroup by corporation_name, Month(date);",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "id"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "table": "killtracker_evekillmail",
+            "timeColumn": "time",
+            "timeColumnType": "timestamp",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "Corp Tax Income (ESS) - Current Month",
+        "type": "table"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "continuous-GrYlRd"
+            },
+            "custom": {
+              "align": null,
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 23,
+          "w": 8,
+          "x": 0,
+          "y": 29
+        },
+        "id": 17,
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Corporation"
+            }
+          ]
+        },
+        "pluginVersion": "7.5.2",
+        "targets": [
+          {
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "select\ncorporation_name as \"Corporation\", SUM(amount) AS \"Amount\"\nFROM \n  corptools_corporationwalletjournalentry as wallet\nINNER JOIN eveonline_evecharacter on eveonline_evecharacter.character_id=second_party_id\nWHERE \n  ref_type = \"agent_mission_reward\" OR ref_type = \"bounty_prizes\" OR ref_type = \"ess_escrow_transfer\" OR ref_type = \"corporate_reward_payout\" AND MONTH(date) = MONTH(CURRENT_TIMESTAMP)\ngroup by corporation_name",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "id"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "table": "killtracker_evekillmail",
+            "timeColumn": "time",
+            "timeColumnType": "timestamp",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "Corp Tax Income (All) - Current Month",
+        "type": "table"
+      }
+    ],
+    "refresh": false,
+    "schemaVersion": 27,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "allValue": null,
+          "current": {
+            "selected": true,
+            "text": "I'm Sorry Shoot What?",
+            "value": "98151631"
+          },
+          "datasource": null,
+          "definition": "select cinfo.corporation_name as __text, cinfo.corporation_id as __value from corptools_corporationaudit caudit\njoin eveonline_evecorporationinfo cinfo on cinfo.id = caudit.corporation_id;",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": false,
+          "label": null,
+          "multi": false,
+          "name": "Corporation",
+          "options": [
+            {
+              "selected": false,
+              "text": "V0LTA",
+              "value": "1831131676"
+            },
+            {
+              "selected": false,
+              "text": "Salt Mine Industries",
+              "value": "98415894"
+            },
+            {
+              "selected": true,
+              "text": "I'm Sorry Shoot What?",
+              "value": "98151631"
+            },
+            {
+              "selected": false,
+              "text": "Quack Quack Industries",
+              "value": "98626261"
+            },
+            {
+              "selected": false,
+              "text": "Fleet Angel's Security Corporation",
+              "value": "98402049"
+            },
+            {
+              "selected": false,
+              "text": "Bromance.",
+              "value": "98072660"
+            },
+            {
+              "selected": false,
+              "text": "G.I.N.A.A",
+              "value": "98224889"
+            },
+            {
+              "selected": false,
+              "text": "New Eden Tourism Office",
+              "value": "98445508"
+            },
+            {
+              "selected": false,
+              "text": "Morley Industries",
+              "value": "98479087"
+            },
+            {
+              "selected": false,
+              "text": "Outer-Planets-Alliance",
+              "value": "98530229"
+            },
+            {
+              "selected": false,
+              "text": "Cygnus Hybrid",
+              "value": "98610963"
+            },
+            {
+              "selected": false,
+              "text": "Otter High Command",
+              "value": "98643919"
+            },
+            {
+              "selected": false,
+              "text": "BSX Industries",
+              "value": "876738141"
+            },
+            {
+              "selected": false,
+              "text": "L0rd of the Blings",
+              "value": "98276522"
+            },
+            {
+              "selected": false,
+              "text": "Somali.Yacht.Club",
+              "value": "98660239"
+            },
+            {
+              "selected": false,
+              "text": "Kennet-Niu GmbH",
+              "value": "98201458"
+            },
+            {
+              "selected": false,
+              "text": "Eclipse Pulsar",
+              "value": "98227789"
+            },
+            {
+              "selected": false,
+              "text": "TOP DAMAGE Ltd.",
+              "value": "98637499"
+            },
+            {
+              "selected": false,
+              "text": "StainsGate",
+              "value": "98630669"
+            },
+            {
+              "selected": false,
+              "text": "Property Managment Ltd",
+              "value": "98617687"
+            },
+            {
+              "selected": false,
+              "text": "Pugnate Morituri",
+              "value": "98666685"
+            },
+            {
+              "selected": false,
+              "text": "Bitter Lemons",
+              "value": "98239232"
+            },
+            {
+              "selected": false,
+              "text": "814CK 0M3G4 53CUR17Y",
+              "value": "98324695"
+            },
+            {
+              "selected": false,
+              "text": "The Sandworm Riders",
+              "value": "98642094"
+            },
+            {
+              "selected": false,
+              "text": "Night Work",
+              "value": "98527053"
+            },
+            {
+              "selected": false,
+              "text": "I Want To Hear You Scream",
+              "value": "98552353"
+            },
+            {
+              "selected": false,
+              "text": "Snakes and Serpents inc.",
+              "value": "98683875"
+            },
+            {
+              "selected": false,
+              "text": "Critical Edge",
+              "value": "98131204"
+            },
+            {
+              "selected": false,
+              "text": "Schwere Stellare Industrie Abteilung 510",
+              "value": "98683756"
+            },
+            {
+              "selected": false,
+              "text": "Highlife.",
+              "value": "98633993"
+            },
+            {
+              "selected": false,
+              "text": "Plastic Wrap",
+              "value": "98420006"
+            }
+          ],
+          "query": "select cinfo.corporation_name as __text, cinfo.corporation_id as __value from corptools_corporationaudit caudit\njoin eveonline_evecorporationinfo cinfo on cinfo.id = caudit.corporation_id;",
+          "refresh": 0,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        },
+        {
+          "allValue": null,
+          "current": {
+            "selected": true,
+            "tags": [],
+            "text": [
+              "transaction_tax",
+              "corporate_reward_payout"
+            ],
+            "value": [
+              "transaction_tax",
+              "corporate_reward_payout"
+            ]
+          },
+          "datasource": null,
+          "definition": "select\n    distinct(cw.ref_type)\nfrom\n    corptools_corporationwalletjournalentry cw\njoin corptools_corporationwalletdivision cwd on cw.division_id = cwd.id\njoin corptools_corporationaudit caudit on cwd.corporation_id = caudit.id\njoin eveonline_evecorporationinfo cinfo on caudit.corporation_id = cinfo.id\nwhere cinfo.corporation_id = $Corporation;",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": false,
+          "label": "Reference Type",
+          "multi": true,
+          "name": "RefType",
+          "options": [],
+          "query": "select\n    distinct(cw.ref_type)\nfrom\n    corptools_corporationwalletjournalentry cw\njoin corptools_corporationwalletdivision cwd on cw.division_id = cwd.id\njoin corptools_corporationaudit caudit on cwd.corporation_id = caudit.id\njoin eveonline_evecorporationinfo cinfo on caudit.corporation_id = cinfo.id\nwhere cinfo.corporation_id = $Corporation;",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 1,
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        }
+      ]
+    },
+    "time": {
+      "from": "now-5m",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Krabbing Income - WIP",
+    "uid": "hq2cUZR7k",
+    "version": 20
+  }

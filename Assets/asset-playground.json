@@ -1,0 +1,250 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 35,
+    "iteration": 1629881044257,
+    "links": [],
+    "panels": [
+      {
+        "datasource": "MySQL",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null,
+              "displayMode": "auto",
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "quantity"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 74
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "groupName"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 123
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Main"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 197
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Character"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 215
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "name"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 150
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 31,
+          "w": 15,
+          "x": 0,
+          "y": 0
+        },
+        "id": 3,
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": false,
+              "displayName": "Main"
+            }
+          ]
+        },
+        "pluginVersion": "7.5.2",
+        "targets": [
+          {
+            "format": "table",
+            "group": [],
+            "hide": false,
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "select\n  (\n    SELECT \n      mc.character_name \n    FROM \n      `authentication_characterownership` \n      INNER JOIN `eveonline_evecharacter` ON (\n        `authentication_characterownership`.`character_id` = `eveonline_evecharacter`.`id`\n      ) \n      INNER JOIN authentication_userprofile up ON up.user_id = authentication_characterownership.user_id \n      INNER JOIN eveonline_evecharacter mc ON up.main_character_id = mc.id \n    WHERE \n      `eveonline_evecharacter`.`id` = cm.id \n    LIMIT \n      1\n  ) as \"Main\",\n    cm.character_name as 'Character',\n    it.name,\n    assets.quantity,\n    ig.name as groupName,\n    loc.location_name\nfrom\n    corptools_characterasset assets\n    join corptools_characteraudit ca on assets.character_id = ca.id\n    join eveonline_evecharacter cm on ca.character_id = cm.id\n    join corptools_eveitemtype it on assets.type_id = it.type_id\n    join corptools_eveitemgroup ig on it.group_id = ig.group_id\n    join corptools_evelocation loc on loc.location_id = assets.location_id\nwhere\n  assets.character_id in ($character)\n  AND\n  it.group_id in ($group);",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Assets",
+        "type": "table"
+      }
+    ],
+    "schemaVersion": 27,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "allValue": null,
+          "current": {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          "datasource": "MySQL",
+          "definition": "Select \ncharacter_name as __text,\nca.id as __value\nfrom corptools_characteraudit ca\njoin eveonline_evecharacter en on ca.character_id = en.id",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": true,
+          "label": "Character",
+          "multi": false,
+          "name": "character",
+          "options": [],
+          "query": "Select \ncharacter_name as __text,\nca.id as __value\nfrom corptools_characteraudit ca\njoin eveonline_evecharacter en on ca.character_id = en.id",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        },
+        {
+          "allValue": null,
+          "current": {
+            "selected": true,
+            "text": [
+              "Tactical Destroyer"
+            ],
+            "value": [
+              "1305"
+            ]
+          },
+          "datasource": "MySQL",
+          "definition": "Select \nname as __text,\ngroup_id as __value\nfrom corptools_eveitemgroup\norder by name;",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": true,
+          "label": "Group",
+          "multi": true,
+          "name": "group",
+          "options": [],
+          "query": "Select \nname as __text,\ngroup_id as __value\nfrom corptools_eveitemgroup\norder by name;",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        }
+      ]
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ]
+    },
+    "timezone": "",
+    "title": "Assets Playground",
+    "uid": "MMuzcBZnk",
+    "version": 5
+  }
