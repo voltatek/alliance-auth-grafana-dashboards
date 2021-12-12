@@ -1,5 +1,5 @@
 # Auth Tasks
 
 ## Tasks
-![Dashboard](/Tasks/images/Tasks.png "Dashboard")
+![Dashboard](/Tasks/images/tasks.png "Dashboard")
 
