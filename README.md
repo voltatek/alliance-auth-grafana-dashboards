@@ -68,7 +68,7 @@ Drop into each folder to see previews of each dashboard
 
 | Name                             | Description                                                     | Modules Required        |
 |:---------------------------------|:----------------------------------------------------------------|:------------------------|
-| Task / Task             | Will show you how and when tasks are running and give overview on number of tasks ran        | Corp Tools / Celery |
+| Task / Task             | Will show you how and when tasks are running and give overview on number of tasks ran        | Celeryanalytics |
 
 Active Devs:
  * [MillerUk](https://github.com/milleruk)
