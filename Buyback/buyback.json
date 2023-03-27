@@ -35,6 +35,9 @@
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "thresholds": {
             "mode": "percentage",
@@ -65,6 +68,9 @@
       },
       "id": 8,
       "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -73,11 +79,7 @@
           "fields": "",
           "values": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "text": {
-          "titleSize": 3
-        }
+        "textMode": "auto"
       },
       "pluginVersion": "9.4.3",
       "targets": [
@@ -111,7 +113,7 @@
         }
       ],
       "title": "Value by selected time",
-      "type": "gauge"
+      "type": "stat"
     },
     {
       "datasource": {
@@ -121,23 +123,35 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "continuous-GrYlRd"
+            "fixedColor": "blue",
+            "mode": "fixed"
           },
           "custom": {
             "axisCenteredZero": false,
-            "axisColorMode": "series",
+            "axisColorMode": "text",
+            "axisGridShow": true,
             "axisLabel": "",
             "axisPlacement": "auto",
-            "fillOpacity": 80,
-            "gradientMode": "opacity",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 25,
+            "gradientMode": "scheme",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
               "viz": false
             },
+            "lineInterpolation": "smooth",
             "lineWidth": 1,
+            "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -163,31 +177,22 @@
       },
       "gridPos": {
         "h": 9,
-        "w": 11,
+        "w": 20,
         "x": 4,
         "y": 0
       },
       "id": 6,
       "options": {
-        "barRadius": 0,
-        "barWidth": 0.97,
-        "fullHighlight": false,
-        "groupWidth": 0.7,
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+          "placement": "right",
+          "showLegend": false
         },
-        "orientation": "auto",
-        "showValue": "auto",
-        "stacking": "none",
         "tooltip": {
           "mode": "single",
           "sort": "none"
-        },
-        "xTickLabelRotation": 90,
-        "xTickLabelSpacing": 0
+        }
       },
       "pluginVersion": "9.4.3",
       "targets": [
@@ -221,89 +226,7 @@
         }
       ],
       "title": "Contracts done by selected time",
-      "type": "barchart"
-    },
-    {
-      "datasource": {
-        "type": "mysql",
-        "uid": "OZtZcDF4k"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "min": -1,
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "orange",
-                "value": 70
-              },
-              {
-                "color": "red",
-                "value": 85
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 4,
-        "x": 15,
-        "y": 0
-      },
-      "id": 22,
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": false
-      },
-      "pluginVersion": "9.4.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "mysql",
-            "uid": "OZtZcDF4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT\r\n  COUNT(price)\r\nFROM\r\n  alliance_auth.buybackprogram_contract\r\nWHERE\r\n  status = 'outstanding'\r\n  AND EXTRACT(MONTH FROM date_issued) = EXTRACT(MONTH FROM CURRENT_TIMESTAMP)\r\nORDER BY\r\n  date_issued ASC",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          }
-        }
-      ],
-      "title": "Current Active Contracts  (Number of Contacts)",
-      "type": "gauge"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -313,197 +236,15 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "fixed"
-          },
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "filterable": true,
-            "inspect": true,
-            "minWidth": 155,
-            "width": 155
+            "mode": "thresholds"
           },
           "mappings": [],
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 11,
-        "w": 5,
-        "x": 19,
-        "y": 0
-      },
-      "id": 20,
-      "options": {
-        "footer": {
-          "countRows": false,
-          "enablePagination": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": false
-      },
-      "pluginVersion": "9.4.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "mysql",
-            "uid": "OZtZcDF4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT\r\n  `buybackprogram_contract`.`price` AS value,\r\n  `buybackprogram_contract`.`date_completed` AS time\r\nFROM\r\n  `alliance_auth`.`buybackprogram_contract`\r\nWHERE\r\n  `buybackprogram_contract`.`status` = 'finished'\r\nORDER BY\r\n  `buybackprogram_contract`.`price` DESC\r\nLIMIT\r\n  10;\r\n",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          }
-        }
-      ],
-      "title": "Best value contracts top 10",
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "mysql",
-        "uid": "OZtZcDF4k"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "orange",
-                "value": 70
-              },
-              {
-                "color": "red",
-                "value": 85
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 4,
-        "x": 15,
-        "y": 6
-      },
-      "id": 26,
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "9.4.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "mysql",
-            "uid": "OZtZcDF4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT\r\n  COALESCE(SUM(price), 0) AS value\r\nFROM\r\n  alliance_auth.buybackprogram_contract\r\nWHERE\r\n  status = 'outstanding'\r\n  AND EXTRACT(MONTH FROM date_issued) = EXTRACT(MONTH FROM CURRENT_TIMESTAMP);\r\n",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          }
-        }
-      ],
-      "title": "Current Active Contracts (Total Value of Contracts)",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "mysql",
-        "uid": "OZtZcDF4k"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "green",
-            "mode": "fixed"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "orange",
-                "value": 70
-              },
-              {
-                "color": "red",
-                "value": 85
               }
             ]
           }
@@ -518,16 +259,18 @@
       },
       "id": 12,
       "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "sum"
           ],
-          "fields": "",
+          "fields": "/^COUNT\\(price\\)$/",
           "values": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "textMode": "auto"
       },
       "pluginVersion": "9.4.3",
       "targets": [
@@ -601,7 +344,7 @@
         }
       ],
       "title": "Contracts done by selected time",
-      "type": "gauge"
+      "type": "stat"
     },
     {
       "gridPos": {
@@ -624,11 +367,14 @@
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
-          "max": 0,
-          "min": 25000000000,
+          "max": 50000000000,
+          "min": 0,
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
@@ -637,6 +383,62 @@
               {
                 "color": "#EAB839",
                 "value": 0
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 10
+              },
+              {
+                "color": "#EF843C",
+                "value": 20
+              },
+              {
+                "color": "#E24D42",
+                "value": 30
+              },
+              {
+                "color": "#1F78C1",
+                "value": 40
+              },
+              {
+                "color": "#BA43A9",
+                "value": 50
+              },
+              {
+                "color": "#705DA0",
+                "value": 60
+              },
+              {
+                "color": "#508642",
+                "value": 70
+              },
+              {
+                "color": "#CCA300",
+                "value": 80
+              },
+              {
+                "color": "#447EBC",
+                "value": 90
+              },
+              {
+                "color": "#C15C17",
+                "value": 100
+              },
+              {
+                "color": "#890F02",
+                "value": 110
+              },
+              {
+                "color": "#0A437C",
+                "value": 120
+              },
+              {
+                "color": "#6D1F62",
+                "value": 130
+              },
+              {
+                "color": "#584477",
+                "value": 140
               }
             ]
           },
@@ -652,6 +454,9 @@
       },
       "id": 16,
       "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -660,8 +465,7 @@
           "fields": "",
           "values": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "textMode": "auto"
       },
       "pluginVersion": "9.4.3",
       "targets": [
@@ -695,7 +499,7 @@
         }
       ],
       "title": "Total isk this month",
-      "type": "gauge"
+      "type": "stat"
     },
     {
       "datasource": {
@@ -705,85 +509,66 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "continuous-BlYlRd"
+            "mode": "thresholds"
           },
           "mappings": [],
-          "max": 0,
-          "min": 20000000000,
-          "noValue": "0",
+          "min": -1,
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "#ccccdc",
                 "value": null
               },
               {
                 "color": "#EAB839",
+                "value": 0
+              },
+              {
+                "color": "light-blue",
+                "value": 1
+              },
+              {
+                "color": "light-blue",
+                "value": 2
+              },
+              {
+                "color": "orange",
+                "value": 3
+              },
+              {
+                "color": "red",
+                "value": 3.9999
+              },
+              {
+                "color": "dark-red",
                 "value": 5
-              },
-              {
-                "color": "#6ED0E0",
-                "value": 15
-              },
-              {
-                "color": "#EF843C",
-                "value": 25
-              },
-              {
-                "color": "#E24D42",
-                "value": 35
-              },
-              {
-                "color": "#1F78C1",
-                "value": 45
-              },
-              {
-                "color": "#BA43A9",
-                "value": 55
-              },
-              {
-                "color": "#705DA0",
-                "value": 65
-              },
-              {
-                "color": "#508642",
-                "value": 75
-              },
-              {
-                "color": "#CCA300",
-                "value": 85
-              },
-              {
-                "color": "#447EBC",
-                "value": 95
-              },
-              {
-                "color": "#C15C17",
-                "value": 100
               }
             ]
-          },
-          "unit": "short"
+          }
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 6,
         "w": 4,
         "x": 15,
-        "y": 12
+        "y": 9
       },
-      "id": 24,
+      "id": 22,
       "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
-          "values": true
+          "values": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "textMode": "auto"
       },
       "pluginVersion": "9.4.3",
       "targets": [
@@ -795,7 +580,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT\r\n  `name`,\r\n  `balance`\r\nFROM\r\n  `alliance_auth`.`corptools_corporationwalletdivision`\r\nWHERE\r\n  `id` = 5\r\n",
+          "rawSql": "SELECT\r\n  COUNT(price)\r\nFROM\r\n  alliance_auth.buybackprogram_contract\r\nWHERE\r\n  status = 'outstanding'\r\n  AND EXTRACT(MONTH FROM date_issued) = EXTRACT(MONTH FROM CURRENT_TIMESTAMP)\r\nORDER BY\r\n  date_issued ASC",
           "refId": "A",
           "sql": {
             "columns": [
@@ -816,8 +601,8 @@
           }
         }
       ],
-      "title": "Buyback wallet",
-      "type": "gauge"
+      "title": "Current Active Contracts  (Number of Contacts)",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -826,6 +611,100 @@
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": true,
+            "minWidth": 155,
+            "width": 155
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 5,
+        "x": 19,
+        "y": 9
+      },
+      "id": 20,
+      "options": {
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": false
+      },
+      "pluginVersion": "9.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "OZtZcDF4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  `buybackprogram_contract`.`price` AS value,\r\n  `buybackprogram_contract`.`date_completed` AS time\r\nFROM\r\n  `alliance_auth`.`buybackprogram_contract`\r\nWHERE\r\n  `buybackprogram_contract`.`status` = 'finished'\r\nORDER BY\r\n  `buybackprogram_contract`.`price` DESC\r\nLIMIT\r\n  10;\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Best value contracts top 10",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "OZtZcDF4k"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "thresholds": {
             "mode": "percentage",
@@ -856,6 +735,9 @@
       },
       "id": 18,
       "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -864,8 +746,7 @@
           "fields": "",
           "values": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "textMode": "auto"
       },
       "pluginVersion": "9.4.3",
       "targets": [
@@ -899,7 +780,90 @@
         }
       ],
       "title": "Total volume m3 this month",
-      "type": "gauge"
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "OZtZcDF4k"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 85
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 15,
+        "y": 15
+      },
+      "id": 26,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "OZtZcDF4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  COALESCE(SUM(price), 0) AS value\r\nFROM\r\n  alliance_auth.buybackprogram_contract\r\nWHERE\r\n  status = 'outstanding'\r\n  AND EXTRACT(MONTH FROM date_issued) = EXTRACT(MONTH FROM CURRENT_TIMESTAMP);\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Current Active Contracts (Total Value of Contracts)",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -1017,6 +981,9 @@
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "thresholds": {
             "mode": "percentage",
@@ -1040,13 +1007,16 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4,
         "x": 0,
         "y": 18
       },
       "id": 10,
       "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -1055,8 +1025,7 @@
           "fields": "",
           "values": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "textMode": "auto"
       },
       "pluginVersion": "9.4.3",
       "targets": [
@@ -1090,7 +1059,7 @@
         }
       ],
       "title": "Volume by selected time total",
-      "type": "gauge"
+      "type": "stat"
     },
     {
       "datasource": {
@@ -1099,6 +1068,88 @@
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 19,
+        "y": 20
+      },
+      "id": 28,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "OZtZcDF4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  `name`,\r\n  `balance`\r\nFROM\r\n  `alliance_auth`.`corptools_corporationwalletdivision`\r\nWHERE\r\n  `id` = 7\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Corp Savings",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "OZtZcDF4k"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "thresholds": {
             "mode": "percentage",
@@ -1121,13 +1172,16 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 3,
         "x": 12,
         "y": 21
       },
       "id": 14,
       "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -1136,8 +1190,7 @@
           "fields": "",
           "values": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": false
+        "textMode": "auto"
       },
       "pluginVersion": "9.4.3",
       "targets": [
@@ -1171,7 +1224,238 @@
         }
       ],
       "title": "Contracts done this month",
-      "type": "gauge"
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "OZtZcDF4k"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 20000000000,
+          "min": 0,
+          "noValue": "0",
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 5
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 15
+              },
+              {
+                "color": "#EF843C",
+                "value": 25
+              },
+              {
+                "color": "#E24D42",
+                "value": 35
+              },
+              {
+                "color": "#1F78C1",
+                "value": 45
+              },
+              {
+                "color": "#BA43A9",
+                "value": 55
+              },
+              {
+                "color": "#705DA0",
+                "value": 65
+              },
+              {
+                "color": "#508642",
+                "value": 75
+              },
+              {
+                "color": "#CCA300",
+                "value": 85
+              },
+              {
+                "color": "#447EBC",
+                "value": 95
+              },
+              {
+                "color": "#C15C17",
+                "value": 100
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 15,
+        "y": 21
+      },
+      "id": 24,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": true
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "OZtZcDF4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  `name`,\r\n  `balance`\r\nFROM\r\n  `alliance_auth`.`corptools_corporationwalletdivision`\r\nWHERE\r\n  `id` = 5\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Buyback wallet",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "OZtZcDF4k"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "semi-dark-green",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      "id": 30,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.5,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": false
+        },
+        "orientation": "auto",
+        "showValue": "always",
+        "stacking": "normal",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "9.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "OZtZcDF4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT DATE_FORMAT(`date_completed`, '%Y-%m-%d') AS `date_of_month`,\r\n       MONTH(`date_completed`) AS `month`,\r\n       SUM(`price`) AS `total value`\r\nFROM `alliance_auth`.`buybackprogram_contract`\r\nWHERE `status` = 'finished'\r\nAND `date_completed` >= $__timeFrom()\r\nAND `date_completed` <= $__timeTo()\r\nGROUP BY MONTH(`date_completed`)\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Per Month Price value select by time frame",
+      "type": "barchart"
     }
   ],
   "refresh": "1m",
@@ -1190,6 +1474,6 @@
   "timezone": "",
   "title": "Buyback",
   "uid": "cN8NSRf4k",
-  "version": 20,
+  "version": 35,
   "weekStart": ""
 }
